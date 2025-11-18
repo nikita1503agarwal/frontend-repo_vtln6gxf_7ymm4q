@@ -1,7 +1,7 @@
 import { memo, useMemo } from 'react'
 
 // Minimal world map via SVG paths (simplified). Colored countries from visited set.
-// For production you might switch to a map lib, but this light SVG works offline.
+// Light, friendly palette for an adventurous vibe.
 
 const countries = [
   { id: 'IRL', name: 'Irland', path: 'M200 120 l10 -5 l10 5 l-5 15 l-12 -3 z' },
@@ -21,17 +21,26 @@ function WorldMap({ visited = new Set(), onCountryClick, markers = [] }) {
   const visitedSet = useMemo(() => new Set(visited), [visited])
 
   return (
-    <svg viewBox="0 0 600 350" className="w-full h-auto rounded-xl border border-slate-800 bg-slate-900">
-      <rect x="0" y="0" width="600" height="350" fill="#0f172a" />
+    <svg viewBox="0 0 600 350" className="w-full h-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+      <rect x="0" y="0" width="600" height="350" fill="#ffffff" />
+      {/* Subtle grid for a map vibe */}
+      <g opacity="0.15">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <line key={`v-${i}`} x1={(i+1)*50} y1={0} x2={(i+1)*50} y2={350} stroke="#93c5fd" strokeWidth={0.5} />
+        ))}
+        {Array.from({ length: 6 }).map((_, i) => (
+          <line key={`h-${i}`} x1={0} y1={(i+1)*50} x2={600} y2={(i+1)*50} stroke="#a7f3d0" strokeWidth={0.5} />
+        ))}
+      </g>
       {/* Countries */}
       {countries.map((c) => (
         <path
           key={c.id}
           d={c.path}
-          fill={visitedSet.has(c.id) ? '#22c55e' : '#64748b'}
-          fillOpacity={visitedSet.has(c.id) ? 0.9 : 0.5}
-          stroke="#0ea5e9"
-          strokeWidth={visitedSet.has(c.id) ? 1.5 : 0.5}
+          fill={visitedSet.has(c.id) ? '#10b981' : '#cbd5e1'}
+          fillOpacity={visitedSet.has(c.id) ? 0.9 : 0.7}
+          stroke={visitedSet.has(c.id) ? '#0ea5e9' : '#94a3b8'}
+          strokeWidth={visitedSet.has(c.id) ? 1.5 : 0.8}
           className={visitedSet.has(c.id) ? 'cursor-pointer hover:opacity-80' : ''}
           onClick={() => visitedSet.has(c.id) && onCountryClick?.(c.id)}
         >
@@ -40,7 +49,7 @@ function WorldMap({ visited = new Set(), onCountryClick, markers = [] }) {
 
       {/* Markers */}
       {markers.map((m, idx) => (
-        <circle key={idx} cx={m.x} cy={m.y} r={4} fill="#22c55e" stroke="#052e16" strokeWidth={1} />
+        <circle key={idx} cx={m.x} cy={m.y} r={4} fill="#10b981" stroke="#065f46" strokeWidth={1} />
       ))}
     </svg>
   )

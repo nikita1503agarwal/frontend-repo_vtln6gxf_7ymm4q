@@ -51,52 +51,52 @@ export default function Travel() {
   return (
     <Layout>
       <div className="mb-6">
-        <h1 className="text-3xl font-bold">Meine Reisen</h1>
-        <p className="text-slate-300">Klicke auf ein farbiges Land, um Reisen zu sehen. Grau = noch unbesucht.</p>
+        <h1 className="text-3xl font-bold text-slate-900">Meine Reisen</h1>
+        <p className="text-slate-600">Klicke auf ein farbiges Land, um Reisen zu sehen. Grau = noch unbesucht.</p>
       </div>
 
       {loading ? (
-        <p>Lade Karte…</p>
+        <p>lade Karte…</p>
       ) : error ? (
-        <p className="text-red-400">{error}</p>
+        <p className="text-red-600">{error}</p>
       ) : (
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <WorldMap visited={visitedCountries} onCountryClick={(id) => setActiveCountry(id)} />
           </div>
           <div className="space-y-4">
-            <div className="rounded-xl border border-slate-800 p-4 bg-slate-900/60">
-              <h3 className="font-semibold mb-2">Reiseübersicht</h3>
+            <div className="rounded-xl border border-slate-200 p-4 bg-white shadow-sm">
+              <h3 className="font-semibold mb-2 text-slate-900">Reiseübersicht</h3>
               {!activeCountry ? (
-                <p className="text-slate-400">Wähle ein Land auf der Karte, um Reisen zu sehen.</p>
+                <p className="text-slate-600">Wähle ein Land auf der Karte, um Reisen zu sehen.</p>
               ) : (
                 <div className="space-y-3">
                   {(tripsByCountry[activeCountry] || []).map((t) => (
-                    <div key={t.id} className="border border-slate-800 rounded-lg p-3 bg-slate-900">
-                      <div className="font-medium">{t.title}</div>
-                      <div className="text-sm text-slate-400">{t.date_text}</div>
+                    <div key={t.id} className="border border-slate-200 rounded-lg p-3 bg-white">
+                      <div className="font-medium text-slate-900">{t.title}</div>
+                      <div className="text-sm text-slate-600">{t.date_text}</div>
                       <details className="mt-2">
-                        <summary className="cursor-pointer text-blue-300">Details</summary>
-                        <div className="text-sm text-slate-300 mt-2 whitespace-pre-line">{t.description}</div>
+                        <summary className="cursor-pointer text-emerald-700">Details</summary>
+                        <div className="text-sm text-slate-700 mt-2 whitespace-pre-line">{t.description}</div>
                         {t.people?.length > 0 && (
-                          <div className="text-sm text-slate-400 mt-1">Personen: {t.people.join(', ')}</div>
+                          <div className="text-sm text-slate-600 mt-1">Personen: {t.people.join(', ')}</div>
                         )}
                         {t.photo_placeholders?.length > 0 && (
                           <div className="mt-2">
-                            <div className="text-xs uppercase tracking-wide text-slate-400">Fotos (Platzhalter):</div>
+                            <div className="text-xs uppercase tracking-wide text-slate-500">Fotos (Platzhalter):</div>
                             <div className="flex flex-wrap gap-2 mt-1">
                               {t.photo_placeholders.map((p, idx) => (
-                                <div key={idx} className="text-xs px-2 py-1 bg-slate-800 rounded border border-slate-700">[{p}]</div>
+                                <div key={idx} className="text-xs px-2 py-1 bg-slate-100 rounded border border-slate-200">[{p}]</div>
                               ))}
                             </div>
                           </div>
                         )}
                         {t.video_urls?.length > 0 && (
                           <div className="mt-3 space-y-2">
-                            <div className="text-xs uppercase tracking-wide text-slate-400">Videos:</div>
+                            <div className="text-xs uppercase tracking-wide text-slate-500">Videos:</div>
                             {t.video_urls.map((v, idx) => (
                               <div key={idx} className="aspect-video w-full">
-                                <iframe className="w-full h-full rounded border border-slate-800" src={v.replace('youtu.be/', 'www.youtube.com/embed/').replace('watch?v=', 'embed/')} title={`video-${idx}`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
+                                <iframe className="w-full h-full rounded border border-slate-200" src={v.replace('youtu.be/', 'www.youtube.com/embed/').replace('watch?v=', 'embed/')} title={`video-${idx}`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
                               </div>
                             ))}
                           </div>
@@ -108,13 +108,13 @@ export default function Travel() {
               )}
             </div>
 
-            <div className="rounded-xl border border-slate-800 p-4 bg-slate-900/60">
-              <h3 className="font-semibold mb-2">Timeline</h3>
+            <div className="rounded-xl border border-slate-200 p-4 bg-white shadow-sm">
+              <h3 className="font-semibold mb-2 text-slate-900">Timeline</h3>
               <div className="space-y-3 max-h-[50vh] overflow-auto pr-2">
                 {trips.map((t) => (
-                  <div key={t.id} className="border-l-2 border-blue-600 pl-3">
-                    <div className="text-sm text-slate-400">{t.date_text}</div>
-                    <div className="font-medium">{t.title}</div>
+                  <div key={t.id} className="border-l-2 border-emerald-600 pl-3">
+                    <div className="text-sm text-slate-600">{t.date_text}</div>
+                    <div className="font-medium text-slate-900">{t.title}</div>
                   </div>
                 ))}
               </div>
